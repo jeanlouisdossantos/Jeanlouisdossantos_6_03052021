@@ -17,6 +17,11 @@ app.use((req, res, next) => {
     next();
   });
 
+app.use('/test/:id/:name' , (req,res)=>{
+  console.log(req.params)
+  res.json({message : "test 2"})
+  });
+
 app.use((req,res)=>{
     res.json({message : "test ok"})
 });
