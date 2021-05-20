@@ -15,7 +15,7 @@ exports.signup = (req, res, next) => {
         .then(() => {
           res.status(201).json({ message: "Création utilisateur OK" });
         })
-        .catch((error) => res.status(400).json({ error }));
+        .catch((error) => res.status(400).json({ error, message : 'deja cree' }));
     })
     .catch((error) => res.status(500).json({ error }));
 };
