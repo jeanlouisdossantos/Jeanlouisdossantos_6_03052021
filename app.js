@@ -3,9 +3,11 @@ const bodyparser = require("body-parser");
 const mongoose = require("mongoose");
 
 const productrouter = require("./router/products")
+const userrouter = require('./router/user')
+const saucerouter = require('./router/sauce')
 
-const result = require('dotenv').config()
-console.log(result.parsed)
+const env = require('dotenv').config()
+
 const app = express();
 
 mongoose
@@ -33,8 +35,8 @@ app.use((req, res, next) => {
 
 
 app.use('/api/products', productrouter)
-
-
+app.use('/api/auth', userrouter)
+app.use('/api/sauce', saucerouter)
 
 // app.use('/test/:id/:name' , (req,res)=>{
 //   console.log(req.params)
