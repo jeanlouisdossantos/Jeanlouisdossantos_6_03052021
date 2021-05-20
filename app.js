@@ -36,7 +36,7 @@ app.use((req, res, next) => {
 
 app.use('/api/products', productrouter)
 app.use('/api/auth', userrouter)
-app.use('/api/sauce', saucerouter)
+app.use('/api/sauces', saucerouter)
 
 // app.use('/test/:id/:name' , (req,res)=>{
 //   console.log(req.params)
