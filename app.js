@@ -1,18 +1,20 @@
 const express = require("express");
 const bodyparser = require("body-parser");
 const mongoose = require("mongoose");
+const path = require("path");
 
-const productrouter = require("./router/products")
+const userrouter = require("./router/user");
+const saucerouter = require("./router/sauce");
 
-const result = require('dotenv').config()
-console.log(result.parsed)
+require("dotenv").config();
+
 const app = express();
 
 mongoose
-  .connect(
-    process.env.DB_HOST,
-    { useNewUrlParser: true, useUnifiedTopology: true }
-  )
+  .connect(process.env.DB_HOST, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
   .then(() => console.log("Connexion à MongoDB réussie !"))
   .catch(() => console.log("Connexion à MongoDB échouée !"));
 
@@ -31,18 +33,10 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use("/img", express.static(path.join(__dirname, "img/")));
 
-app.use('/api/products', productrouter)
+app.use("/api/auth", userrouter);
+app.use("/api/sauces", saucerouter);
 
-
-
-// app.use('/test/:id/:name' , (req,res)=>{
-//   console.log(req.params)
-//   res.json({message : "test 2"})
-//   });
-
-// app.use((req,res)=>{
-//     res.json({message : "test ok"})
-// });
 
 module.exports = app;
