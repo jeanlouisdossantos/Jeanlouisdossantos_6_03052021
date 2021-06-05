@@ -8,7 +8,7 @@ module.exports = (req, res, next) => {
     if (req.body.userID && req.body.userID !== userId) {
       throw "userid non valable";
     } else
-    console.log(userId)
+  
     res.locals.userID = userId
     next();
   } catch (error) {

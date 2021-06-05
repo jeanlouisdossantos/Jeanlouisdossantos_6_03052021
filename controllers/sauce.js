@@ -49,23 +49,24 @@ exports.createOneSauce = (req, res, next) => {
 };
 
 exports.updateOneSauce = (req, res, next) => {
-  if (!req.body.sauce) {
-    return res.status(400).json({ message: "bad request" });
+  
+  // correction suite evaluation. Le code était if(!req.body.sauce) aurais du etre juste req.body)
+  if (!req.body) {
+    return res.status(400).json({ message: "bad request 222" });
   }
-  const sauceobject = req.file
-    ? {
+  const sauceobject = req.file ? {
         ...JSON.parse(req.body.sauce),
-        imageUrl: `${req.protocol}://${req.get("host")}/img/${
-          req.file.filename
-        }`,
-      }
-    : { ...req.body };
+        imageUrl: `${req.protocol}://${req.get("host")}/img/${req.file.filename}`,
+      } : { ...req.body };
+  
   Sauce.updateOne(
     { _id: req.params.id },
     { ...sauceobject, _id: req.params.id }
   )
     .then(() => res.status(200).json({ message: "ok" }))
-    .catch((error) => res.status(500).json({ error }));
+    .catch((error) => {
+      console.log("erreur 1")
+      res.status(500).json({ error })});
 };
 
 exports.updatelikes = (req, res, next) => {
